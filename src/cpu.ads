@@ -1,18 +1,17 @@
-package CPU is
-   
-   Word_Size        : constant Natural := 16;
-   Instruction_Size : constant Natural := 4;
-   Register_Size    : constant Natural := 3;
-   
-   type Words is mod 2**Word_Size;
-   type Instructions is mod 2**Instruction_Size;
-   type Operands is mod 2**(Word_Size-Instruction_Size);
-   type Registers is mod 2**Register_Size;
-   
-   type CPU_Flags is (P,Z, N);
+with CPU_Specifications;
 
-   Register : array (0 .. 7) of Registers := ( others => 0);
-   
---   Flags : array (
-   
+package CPU is
+   use CPU_Specifications;
+
+   Register : array (Registers) of Words := ( others => 0);
+
+   Flag : array (CPU_Flags) of Boolean;
+
+   procedure Tick;
+
+private
+   Current_Operation   : Words        := 0;
+   Instruction_Pointer : Memory_Index := Memory_Index'First;
+
+   Instruction_Cycle : Instruction_Cycles := Instruction_Cycles'First;
 end CPU;
