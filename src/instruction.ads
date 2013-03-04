@@ -4,7 +4,27 @@ package Instruction is
    use CPU_Specifications;
 
    Package_Name : constant String := "Instruction";
+   
+   
+   procedure Add (Word : Words);
+   procedure Bit_Or_Logic_And (Word : in words);
+   procedure Conditional_Branch (Word : in words) is null;
+   procedure Load (Word : in words) is null;
+   procedure Store(Word : in words) is null;
+   procedure JSR_Or_JSRR(Word : in words) is null;
+   procedure Load_Relative(Word : in words) is null; 
+   procedure Store_Relative(Word : in words) is null; 
+   procedure Return_From_Interrupt(Word : in words) is null; 
+   procedure Bitwise_Not(Word : in words) is null; 
+   procedure Load_Indirect(Word : in words) is null; 
+   procedure Store_Indirect(Word : in words) is null; 
+   procedure JMP_Or_RET(Word : in words) is null; 
+   procedure Unused(Word : in words) is null; 
+   procedure Load_Effective_Address(Word : in words) is null; 
+   procedure Return_From_Sub(Word : in words) is null; 
+   procedure Trap(Word : in words) is null; 
 
+   
    type Instance is abstract tagged
       record
          Word : Words;
@@ -13,19 +33,6 @@ package Instruction is
    procedure Evaluate (Obj : in out Instance) is abstract;
    procedure Store (Obj : in Instance) is abstract;
 
-   type Add is new Instance with private;
-   procedure Load (Obj : in out Add);
-   procedure Evaluate (Obj : in out Add);
-   procedure Store (Obj : in Add);
-
-   type Bit_Or_Logic_And is new Instance with private;
-   procedure Load (Obj : in out Bit_Or_Logic_And);
-   procedure Evaluate (Obj : in out Bit_Or_Logic_And);
-   procedure Store (Obj : in Bit_Or_Logic_And);
-
-   function Value (Bits : Words) return Instance'Class;
-
-   --  procedure Add_1 (Bits : in CPU.Words);
 
    type Dummy is new Instance with null record;
    procedure Load (Obj : in out Dummy) is null;
@@ -37,20 +44,6 @@ package Instruction is
 
 
 private
-   type Add is new Instance with
-      record
-         Left                 : LC3_Integer := 0;
-         Right                : LC3_Integer := 0;
-         Destination_Register : Registers   := 0;
-         Intermediate_Result  : LC3_Integer := 0;
-      end record;
 
-   type Bit_Or_Logic_And is new Instance with
-      record
-         Left                 : LC3_Integer := 0;
-         Right                : LC3_Integer := 0;
-         Destination_Register : Registers   := 0;
-         Intermediate_Result  : LC3_Integer := 0;
-      end record;
 end Instruction;
 
